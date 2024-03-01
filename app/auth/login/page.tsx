@@ -93,7 +93,7 @@ const Login = () => {
   }, [token])
  
   return (
-    <div className="md:h-screen pt-10 px-2 min-h-screen flex flex-col justify-center items-center">
+    <div className="inter-font md:h-screen pt-10 px-2 min-h-screen flex flex-col justify-center items-center">
       <img
         className="block w-[60px] h-10"
         src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/original_logo_0DliJcfsTcciZen38gX9.png"

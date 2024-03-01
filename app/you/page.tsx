@@ -20,7 +20,7 @@ const Profile = () => {
   return (
     <>
         <div className="h-48 bg-black w-full absolute left-0 top-0 z-[-1]"></div>
-      <div className="max-w-screen-lg mx-auto p-3 mx:p-1">
+      <div className="inter-font max-w-screen-lg mx-auto p-3 mx:p-1">
         <div className="bg-white rounded-md flex flex-col items-center justify-center mt-32 pb-5">
             <div className="relative translate-y-[-50%] h-[120px] w-[120px] rounded-full p-2 bg-black">
                 <img src="https://media.dev.to/cdn-cgi/image/width=320,height=320,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F1273401%2Fc45e15ed-3b83-4c62-acf2-dd5efb809a41.png" className="block h-full w-full rounded-full" alt="pfp" />

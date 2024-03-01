@@ -134,7 +134,7 @@ const Signup = () => {
   }, [success])
   return (
     <>
-      <div className="min-h-screen flex flex-col pt-28 items-center px-2">
+      <div className="min-h-screen flex flex-col pt-28 items-center px-2 inter-font">
         <img
           className="block w-[60px] h-10"
           src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/original_logo_0DliJcfsTcciZen38gX9.png"
