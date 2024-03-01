@@ -1,12 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { FaArrowAltCircleRight } from "react-icons/fa";
-import { Rubik, inter } from "./layout";
+
 import Companies from "@/components/Companies";
 import Community from "@/components/Community";
 import "./globals.css";
 import Link from "next/link";
 import SideBar from "@/components/SideBar";
+import { Inter, Pacifico } from "next/font/google";
+const inter = Inter({ subsets: ["latin"], weight: ["900"] });
+ const Rubik = Pacifico({
+  subsets: ["latin"],
+  weight:["400"]
+});
 export default function Home() {
   
   return (

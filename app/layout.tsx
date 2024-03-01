@@ -4,16 +4,16 @@ import "./globals.css";
 import Navbar from "@/components/Nav";
 import Footer from "@/components/Footer";
 
-export const inter = Inter({ subsets: ["latin"], weight: ["900"] });
-export const Rubik = Pacifico({
+ const inter = Inter({ subsets: ["latin"], weight: ["900"] });
+ const Rubik = Pacifico({
   subsets: ["latin"],
   weight:["400"]
 });
-export const space_Grotesk = Space_Grotesk({
+ const space_Grotesk = Space_Grotesk({
   subsets: ["latin"],
   weight:["700"]
 });
-export const metadata: Metadata = {
+ const metadata: Metadata = {
   title: "Blog",
   description: "Dev.to Clone",
 };
