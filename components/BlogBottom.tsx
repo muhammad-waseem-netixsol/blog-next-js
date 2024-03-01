@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import Comments from "./Comments";
 import { FaRegBookmark, FaRegComment } from "react-icons/fa";
