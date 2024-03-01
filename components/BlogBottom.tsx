@@ -73,6 +73,8 @@ const BlogBottom: React.FC<BlogBottomProps> = ({
     const data = await resp.json();
     console.log(data);
   };
+  const reverseComments = [...comments]?.reverse();
+  console.log("reversed =>",reverseComments);
 
   return (
     <>
@@ -103,8 +105,7 @@ const BlogBottom: React.FC<BlogBottomProps> = ({
       {show && (
         <>
           <Comments id={id} />
-          {comments?.length > 0 && comments.reverse().map(comment => <Comment comment={comment} />)}
-          
+          {reverseComments?.length > 0 && reverseComments.map(comment => <Comment comment={comment} />)}
         </>
       )}
     </>
