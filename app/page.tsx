@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
     {/* <SideBar /> */}
-    <main className="min-h-screen max-w-screen-xl flex flex-col gap-5 justify-center items-center">
+    <main className="inter-font min-h-screen max-w-screen-xl flex flex-col gap-5 justify-center items-center">
       <h1 className={`${Rubik.className} text-4xl font-black text-center`}>
         Introducing
       </h1>
@@ -27,7 +27,7 @@ export default function Home() {
         <br />
         meet <span className="text-indigo-500">community</span> power!
       </p>
-      <p className="text-center px-2">
+      <p className="text-center px-2 inter-font">
         Create and grow your developer blog, newsletter, or team engineering
         blog effortlessly <br /> with Hashnode. Level up your writing using
         powerful AI features!
