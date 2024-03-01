@@ -25,7 +25,7 @@ const Comments: React.FC<adminControlsProps> = ({ id }) => {
     //   alert("Please add a comment");
     //   return;
     // }
-    commentAddHandler(comment, id);
+    await commentAddHandler(comment, id);
     setComment("");
   };
 

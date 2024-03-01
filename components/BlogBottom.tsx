@@ -103,7 +103,7 @@ const BlogBottom: React.FC<BlogBottomProps> = ({
       {show && (
         <>
           <Comments id={id} />
-          {comments?.length > 0 && comments.map(comment => <Comment comment={comment} />)}
+          {comments?.length > 0 && comments.reverse().map(comment => <Comment comment={comment} />)}
           
         </>
       )}
