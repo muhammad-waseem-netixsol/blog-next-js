@@ -16,7 +16,7 @@ interface BlogBottomProps {
 
 const BlogBottom: React.FC<BlogBottomProps> = ({
   show,
-  comments,
+  comments = [],
   reactions = [], 
   id,
 }) => {
@@ -73,8 +73,8 @@ const BlogBottom: React.FC<BlogBottomProps> = ({
     const data = await resp.json();
     console.log(data);
   };
-  const reverseComments = [...comments]?.reverse();
-  console.log("reversed =>",reverseComments);
+  const reverseComments = comments?.reverse();
+  console.log("reversed => ",reverseComments);
 
   return (
     <>
