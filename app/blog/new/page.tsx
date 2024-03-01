@@ -44,7 +44,7 @@ function page() {
       </div>
       {/* preview */}
       <div className='bg-white w-full rounded-md'>
-        <Blog previewStatus={true} imagePreView={imageUrl} textPreview={text}/>
+        {/* <Blog previewStatus={true} imagePreView={imageUrl} textPreview={text}/> */}
       </div>
     </div>
   )

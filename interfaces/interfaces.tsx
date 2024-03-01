@@ -59,6 +59,9 @@ export interface CompProps {
   details: boolean;
   isDetail: boolean;
   pending: boolean;
+  // previewStatus: boolean;
+  // imagePreView: string;
+  // textPreview: string;
 }
 
 // comment component
