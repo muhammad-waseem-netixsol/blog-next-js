@@ -27,7 +27,7 @@ const Options = () => {
     authentication();
   }, [token, logout]);
   return (
-    <ul className="flex flex-col justify-start items-start pl-3 md:sticky md:left-0 md:top-[80px]">
+    <ul className="inter-font flex flex-col justify-start items-start pl-3 md:sticky md:left-0 md:top-[80px]">
       {path !== "/blog/home" && <Link className="w-full" href={"/blog/home"}>
         <li className={`flex justify-start items-center px-2 gap-4 text-md w-full py-3 cursor-pointer hover:bg-indigo-100 ${path === "/home" && "bg-indigo-100"} rounded hover:underline`}>
           <FcHome className="text-2xl" /> Timeline
