@@ -1,5 +1,6 @@
 import BlogHome from "@/components/Home";
 import Navbar from "@/components/Nav";
+import {React} from "react";
 
 const Home = ({
     children,
