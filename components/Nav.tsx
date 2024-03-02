@@ -8,7 +8,8 @@ import useLogin from "@/zustand-store/loginStore/Login";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const { isAuthenticated, token, logout } = useLogin();
+  const { isAuthenticated, token, logout, initialIsAuthenticated } = useLogin();
+
   const [auth, setAuth] = useState(false);
   useEffect(() => {
     const authentication = async () => {
@@ -16,8 +17,9 @@ const Navbar = () => {
     };
     authentication();
   }, [token, logout]);
-  return ( <div className=" shadow protest-revolution-regular bg-white max-w-screen sm:min-w-screen w-screen mx-auto z-50 fixed left-0 top-0">
-      <div className="container  max-w-screen-xl mx-auto navbar-grid justify-between items-center h-14 z-50">
+  return (
+    <div className="shadow protest-revolution-regular bg-white max-w-screen sm:min-w-screen w-screen mx-auto z-50 fixed left-0 top-0">
+      <div className="container max-w-screen-xl mx-auto navbar-grid justify-between items-center h-14 z-50">
         <div className="flex justify-start gap-2">
           <div className="flex-center">
             <Link href={"/blog/home"}>
@@ -28,7 +30,7 @@ const Navbar = () => {
               />
             </Link>
           </div>
-          {auth && (
+          {initialIsAuthenticated && (
             <div className="h-[40px] relative md:w-[420px] w-full">
               <input
                 className="outline-none border px-3 rounded-sm h-full w-full flex justify-start items-center p-1"
@@ -42,33 +44,33 @@ const Navbar = () => {
           )}
         </div>
         <div className="flex justify-end items-center gap-5 responsive_hide">
-          {auth && (
-            <Link href={"/blog/new"}>
+          {initialIsAuthenticated && (
+            <Link href={"/new"}>
               <button className="w-28 hover:bg-indigo-600 text-indigo-600 hover:text-white font-light h-[40px] px-3 rounded-lg border border-indigo-700">
                 Create Post
               </button>
             </Link>
           )}
-          {!auth && (
+          {!initialIsAuthenticated && (
             <Link href={"/auth/login"}>
               <button className="hover:bg-indigo-100 h-[40px] px-3 rounded-md">
                 Login
               </button>
             </Link>
           )}
-          {!auth && (
+          {!initialIsAuthenticated && (
             <Link href={"/auth/signup"}>
               <button className="w-36 px-2 hover:bg-indigo-600 text-indigo-600 hover:text-white h-[40px] rounded-lg border border-indigo-700">
                 Create Account
               </button>
             </Link>
           )}
-          {auth && (
+          {initialIsAuthenticated && (
             <div className="flex-center cursor-pointer h-[40px] rounded-xl text-black hover:bg-indigo-200 w-[40px]">
               <RiNotification3Line className="text-2xl" />
             </div>
           )}
-          {auth && (
+          {initialIsAuthenticated && (
             <Link href={"/you"}>
               <RoundedImage
                 url={"https://avatars.githubusercontent.com/u/151015897?v=4"}

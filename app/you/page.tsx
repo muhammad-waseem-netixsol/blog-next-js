@@ -9,12 +9,12 @@ import { GoHash } from "react-icons/go";
 import { TbMessageCircle2 } from "react-icons/tb";
 
 const Profile = () => {
-  const {name, username, created, token} = useLogin();
+  const {name, username, created, initialIsAuthenticated, token} = useLogin();
   useLayoutEffect(()=> {
-    if(!token){
+    if(!initialIsAuthenticated){
       router.push("/auth/login");
     }
-  }, [token])
+  }, [token, initialIsAuthenticated])
   const router = useRouter();
   const joinDate = new Date(created).toLocaleDateString("en-US");
   return (

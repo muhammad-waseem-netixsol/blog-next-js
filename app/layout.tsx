@@ -5,14 +5,17 @@ import Navbar from "@/components/Nav";
 import Footer from "@/components/Footer";
 
  const inter = Inter({ subsets: ["latin"], weight: ["900"] });
+
  const Rubik = Pacifico({
   subsets: ["latin"],
   weight:["400"]
 });
+
  const space_Grotesk = Space_Grotesk({
   subsets: ["latin"],
   weight:["700"]
 });
+
  const metadata: Metadata = {
   title: "Blog",
   description: "Dev.to Clone",

@@ -11,18 +11,18 @@ import { FcCancel } from "react-icons/fc";
 export default function Page({ params }: { params: { blogSlug: string } }) {
   const {getBlog, blog, fetching, fetchingError} = blogStore();
   const router = useRouter();
-  const {isAuthenticated} = useLogin();
+  const {initialIsAuthenticated} = useLogin();
   const {refetch} = commentsStore();
   useLayoutEffect(()=> {
     const authen = async () => {
-      if(await isAuthenticated()) {
+      if(initialIsAuthenticated) {
         getBlog(params.blogSlug);
       }else{
         router.push("/auth/login");
       }
     }
     authen();
-  }, []);
+  }, [initialIsAuthenticated]);
   useEffect(()=> {
     getBlog(params.blogSlug);
   }, [refetch]);

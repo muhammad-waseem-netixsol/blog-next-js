@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { create } from "zustand";
 
 const useLogin = create((set) => ({
+   initialIsAuthenticated : !!Cookies.get("token"),
   loading: false,
   success: false,
   httpReqError: null,
@@ -33,7 +34,7 @@ const useLogin = create((set) => ({
       }
       const res = await auth.json();
       console.log(res)
-      set({ userId: res.user._id, role: res.user.role, name: res.user.name, username: res.user.username, created: res.user.createdAt });
+      set({ userId: res.user._id, role: res.user.role, name: res.user.name, username: res.user.username, created: res.user.createdAt, initialIsAuthenticated: true});
       return true;
     } catch (error) {
       console.error("Error during authentication:", error);
@@ -58,7 +59,6 @@ const useLogin = create((set) => ({
         return;
       }
       const data = await response.json();
-      console.log(data)
       Cookies.set("token", JSON.stringify(data.response.token));
       // Handle successful response
       set({
@@ -66,6 +66,7 @@ const useLogin = create((set) => ({
         success: true,
         httpReqError: null,
         token: data.response.token,
+        initialIsAuthenticated: true
       });
     } catch (httpReqError) {
       // Handle other httpReqErrors
@@ -78,7 +79,7 @@ const useLogin = create((set) => ({
   },
   logout: () => {
     Cookies.remove("token");
-    set({ token: null, name: "", username: "", created: null });
+    set({ token: null, name: "", username: "", created: null, initialIsAuthenticated: false });
   },
 }));
 export default useLogin;
