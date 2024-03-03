@@ -35,7 +35,7 @@ const Options = () => {
           <FcBiotech className="text-2xl" /> Pending Posts
         </li>
       </Link>}
-      {!initialIsAuthenticated&& <Link className="w-full" href={"/blog/login"}>
+      {!initialIsAuthenticated&& <Link className="w-full" href={"/auth/login"}>
         <li className={`flex justify-start items-center px-2 gap-4 text-md w-full py-3 cursor-pointer hover:bg-indigo-100 rounded hover:underline ${path === "/pending" && "bg-indigo-100"}`}>
         <FcPortraitMode className="text-2xl" /> Login
         </li>

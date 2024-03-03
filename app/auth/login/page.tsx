@@ -8,7 +8,7 @@ import useLogin from "../../../zustand-store/loginStore/Login";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const { loginHandler, loading, success, httpReqError, isAuthenticated, token } = useLogin();
+  const { loginHandler, loading, httpReqError, initialIsAuthenticated, token } = useLogin();
   console.log( token);
   const { error, validateUser } = useValidation();
   const router = useRouter();
@@ -21,14 +21,14 @@ const Login = () => {
     password: "",
   });
   // check if user is authenticated
-  useLayoutEffect(() => {
+  useEffect(() => {
     const authentication = async () => {
-      if (await isAuthenticated()) {
+      if (initialIsAuthenticated) {
         router.push("/");
       }
     }; 
     authentication();
-  }, []);
+  }, [initialIsAuthenticated]);
   // on change states
   const onChangeFieldsValue = (e: any) => {
     const { name, value } = e.target;
@@ -82,15 +82,15 @@ const Login = () => {
       email: user.email,
       password: user.password,
     });
-    
+   
   };
   useEffect(()=> {
-    if (token) {
-      router.replace("/");
+    if (initialIsAuthenticated) {
+      router.push("/");
     } else {
       return;
     }
-  }, [token])
+  }, [initialIsAuthenticated, loading, httpReqError, token]);
  
   return (
     <div className="inter-font md:h-screen pt-10 px-2 min-h-screen flex flex-col justify-center items-center">

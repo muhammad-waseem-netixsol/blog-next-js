@@ -303,7 +303,6 @@ const Signup = () => {
           >
             {loading ? "Please Wait" : "Create Account"}
           </button>
-          <p>Error Occurred! See Errors</p>
           <p className="w-full text-start text-red-500">
             {Array.isArray(httpReqError?.message)
               ? httpReqError?.message?.map((error: string) => (

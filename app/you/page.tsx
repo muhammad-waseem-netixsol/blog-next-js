@@ -2,33 +2,44 @@
 import useLogin from "@/zustand-store/loginStore/Login";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { FaBirthdayCake } from "react-icons/fa";
 import { GiNotebook } from "react-icons/gi";
 import { GoHash } from "react-icons/go";
 import { TbMessageCircle2 } from "react-icons/tb";
+import Cookies from "js-cookie";
 
 const Profile = () => {
   const {name, username, created, initialIsAuthenticated, token} = useLogin();
+  const [user, setUser] = useState(null);
+  const [joinee, setJoinee] = useState<string>(null);
+  const router = useRouter();
   useLayoutEffect(()=> {
     if(!initialIsAuthenticated){
       router.push("/auth/login");
     }
   }, [token, initialIsAuthenticated])
-  const router = useRouter();
-  const joinDate = new Date(created).toLocaleDateString("en-US");
+  useEffect(()=> {
+    const userData = Cookies.get("user");
+    const user = JSON.parse(userData);
+    console.log(user)
+    setUser(user.user);
+    setJoinee(new Date(user.createdAt).toLocaleDateString(undefined, { day: 'numeric', month: 'numeric', year: '2-digit' }));
+  }, [])
+ 
+ 
   return (
     <>
         <div className="h-48 bg-black w-full absolute left-0 top-0 z-[-1]"></div>
       <div className="inter-font max-w-screen-lg mx-auto p-3 mx:p-1">
         <div className="bg-white rounded-md flex flex-col items-center justify-center mt-32 pb-5">
             <div className="relative translate-y-[-50%] h-[120px] w-[120px] rounded-full p-2 bg-black">
-                <img src="https://media.dev.to/cdn-cgi/image/width=320,height=320,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F1273401%2Fc45e15ed-3b83-4c62-acf2-dd5efb809a41.png" className="block h-full w-full rounded-full" alt="pfp" />
+                <img src={user?.image} className="object-center block h-full w-full rounded-full" alt="pfp" />
             </div>
-            <div className="md:text-3xl  font-black roboto-bold leading-3">{name}
-            <p className="block text-center text-sm font-light text-gray-600">({username})</p></div>
+            <div className="md:text-3xl  font-black roboto-bold leading-3">{user?.name}
+            <p className="block text-center text-sm font-light text-gray-600">({user?.username})</p></div>
             <p className="text-center py-5">Bio here</p>
-            <div className="flex justify-center gap-2"><FaBirthdayCake className=" text-2xl"  />{joinDate}</div>
+            <div className="flex justify-center gap-2"><FaBirthdayCake className=" text-2xl"  />{joinee}</div>
             <div className="py-5"> 
               <Link href={"/blog/home"}><button className="bg-indigo-600 text-white py-2 px-5 hover:bg-indigo-800">GO BACK TO TIMELINE</button></Link>
             </div>

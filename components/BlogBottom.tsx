@@ -7,7 +7,7 @@ import { GrLike } from "react-icons/gr";
 import useLogin from "@/zustand-store/loginStore/Login";
 import { useRouter } from "next/navigation";
 import { CommentInterface } from "@/interfaces/interfaces";
-
+import Cookies from "js-cookie";
 interface BlogBottomProps {
   show: boolean;
   comments: CommentInterface[];
@@ -54,17 +54,20 @@ const BlogBottom: React.FC<BlogBottomProps> = ({
     }
   }
   const userReactionHandle = async () => {
-    if(!token){
+    const userData = Cookies.get("user");
+    if(!userData){
       alert("You must be logged in to like a blog");
       router.push("/auth/login");
     }
+    const user = JSON.parse(userData);
+    
     setIsLiked(!isLiked);
     toggleLike();
     const resp = await fetch(`http://localhost:3001/reaction`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer "+token, 
+        Authorization: "Bearer " + user?.token, 
       },
       body: JSON.stringify({
         blog: id,
@@ -72,10 +75,8 @@ const BlogBottom: React.FC<BlogBottomProps> = ({
       }),
     });
     const data = await resp.json();
-    console.log(data);
   };
   const reverseComments = [...comments].reverse();
-  console.log("reversed => ",reverseComments);
 
   return (
     <>

@@ -13,17 +13,18 @@ const commentsStore = create<CommentsStore>((set) => ({
     refetch: false,
     error: "",
     commentAddHandler: async (comment: string, blogId: string) => {
-      const data = Cookies.get('token');
-      if (!data) {
+      const userData = Cookies.get("user");
+      
+      if (!userData) {
         set({ error: "You have to log in first!" });
         return;
       }
-      const parsed = JSON.parse(data);
+      const user = JSON.parse(userData);
       const response = await fetch("https://blog-api-m5jf.vercel.app/comment", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + parsed,
+          Authorization: "Bearer " + user.token,
         },
         body: JSON.stringify({
           comment: comment,

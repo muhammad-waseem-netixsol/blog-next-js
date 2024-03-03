@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { create } from "zustand";
 
 const useLogin = create((set) => ({
-   initialIsAuthenticated : !!Cookies.get("token"),
+  initialIsAuthenticated : !!Cookies.get("user"),
   loading: false,
   success: false,
   httpReqError: null,
@@ -13,37 +13,37 @@ const useLogin = create((set) => ({
   token : null ,
   role: "ghost",
   userId: "",
-  isAuthenticated: async () => {
-    const data = Cookies.get("token");
-    if (!data) {
-      set({ token: null, name: "", username: "", created: null });
-      return false;
-    }
-    console.log(data);
-    const parsed = JSON.parse(data);
-    try {
-      const auth = await fetch("https://blog-api-m5jf.vercel.app/auth/verify-user", {
-        headers: {
-          Authorization: `Bearer ${parsed}`,
-        },
-      });
-      if (!auth.ok) {
-        Cookies.remove("token");
-        set({ token: null, name: "", username: "", created: null });
-        return false;
-      }
-      const res = await auth.json();
-      console.log(res)
-      set({ userId: res.user._id, role: res.user.role, name: res.user.name, username: res.user.username, created: res.user.createdAt, initialIsAuthenticated: true});
-      return true;
-    } catch (error) {
-      console.error("Error during authentication:", error);
-      return false;
-    }
-  },
+  // isAuthenticated: async () => {
+  //   const data = Cookies.get("token");
+  //   if (!data) {
+  //     set({ token: null, name: "", username: "", created: null });
+  //     return false;
+  //   }
+  //   console.log(data);
+  //   const parsed = JSON.parse(data);
+  //   try {
+  //     const auth = await fetch("https://blog-api-m5jf.vercel.app/auth/verify-user", {
+  //       headers: {
+  //         Authorization: `Bearer ${parsed}`,
+  //       },
+  //     });
+  //     if (!auth.ok) {
+  //       Cookies.remove("token");
+  //       set({ token: null, name: "", username: "", created: null });
+  //       return false;
+  //     }
+  //     const res = await auth.json();
+  //     console.log(res)
+  //     set({ userId: res.user._id, role: res.user.role, name: res.user.name, username: res.user.username, created: res.user.createdAt, initialIsAuthenticated: true});
+  //     return true;
+  //   } catch (error) {
+  //     console.error("Error during authentication:", error);
+  //     return false;
+  //   }
+  // },
   
   loginHandler: async (URL, method, credentials) => {
-    Cookies.remove("token");
+    Cookies.remove("user");
     set({ loading: true, httpReqError: null });
     try {
       const response = await fetch("https://blog-api-m5jf.vercel.app/auth/login", {
@@ -59,13 +59,14 @@ const useLogin = create((set) => ({
         return;
       }
       const data = await response.json();
-      Cookies.set("token", JSON.stringify(data.response.token));
+      console.log(data)
+      Cookies.set("user", JSON.stringify(data), {expires: 7});
       // Handle successful response
       set({
         loading: false,
         success: true,
         httpReqError: null,
-        token: data.response.token,
+        token: data.token,
         initialIsAuthenticated: true
       });
     } catch (httpReqError) {
@@ -78,7 +79,7 @@ const useLogin = create((set) => ({
     }
   },
   logout: () => {
-    Cookies.remove("token");
+    Cookies.remove("user");
     set({ token: null, name: "", username: "", created: null, initialIsAuthenticated: false });
   },
 }));

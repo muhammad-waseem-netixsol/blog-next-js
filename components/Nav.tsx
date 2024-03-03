@@ -1,21 +1,18 @@
-"use client";
+"use client"
 import { CiSearch } from "react-icons/ci";
 import { RiNotification3Line } from "react-icons/ri";
 import RoundedImage from "./RoundedImage";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
 import useLogin from "@/zustand-store/loginStore/Login";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 const Navbar = () => {
   const { isAuthenticated, token, logout, initialIsAuthenticated } = useLogin();
 
   const [auth, setAuth] = useState(false);
-  useEffect(() => {
-    const authentication = async () => {
-      setAuth(await isAuthenticated());
-    };
-    authentication();
+  useEffect(() => { 
+      setAuth(initialIsAuthenticated);
   }, [token, logout]);
   return (
     <div className="shadow protest-revolution-regular bg-white max-w-screen sm:min-w-screen w-screen mx-auto z-50 fixed left-0 top-0">
