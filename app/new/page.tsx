@@ -1,11 +1,11 @@
 "use client"
-import Blog from '@/components/Blog';
-import { File } from 'buffer';
+import BlogDemo from '@/components/BlogDemo';
 import React, {ChangeEvent, useRef , useState} from 'react';
 
 function page() {
   const [file, setFile] = useState<any>(null);
   const [text, setText] = useState<string>('');
+  const [heading, setHeading] = useState<string>('');
   const [imageError, setImageError] = useState<boolean>(false);
   const [imageSizeError, setImageSizeError] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>('');
@@ -41,11 +41,16 @@ function page() {
          {imageError && <p className='text-red-500 text-sm'>* Image has unsupported type. only PNG.</p>}
          {imageSizeError && <p className='text-red-500 text-sm'>* Image must be less than 100KB.</p>}
          </div>
+         <input onChange={e => setHeading(e.target.value)} value={heading} className='outline-none p-2 bg-gray-50 w-full border-gray-100 border-2' placeholder='Enter heading...'  />
+         <textarea onChange={e => setText(e.target.value)} value={text} className='w-full bg-gray-50 my-4 border-2 border-gray-100 p-2 outline-none' placeholder='Enter text here...' name="" id="" cols={30} rows={10}></textarea>
       </div>
+      
+
       {/* preview */}
       <div className='bg-white w-full rounded-md'>
-        {/* <Blog previewStatus={true} imagePreView={imageUrl} textPreview={text}/> */}
+        <BlogDemo image={imageUrl} text={text} heading={heading}   />
       </div>
+      <div className="py-3"><button onClick={() => alert("Working on it....")} className="bg-indigo-500 text-white w-full py-2 rounded">Add Blog</button></div>
     </div>
   )
 }
