@@ -17,7 +17,7 @@ function page() {
 
 	const config:any = useMemo(()=> ({
 			readonly: false, 
-			placeholder:  'Start typings...'
+			placeholder:  'Blog Description | Text goes here....',
   }), []);
   // on file button click 
   const onPickFile = () => {
@@ -52,15 +52,17 @@ function page() {
          {imageSizeError && <p className='text-red-500 text-sm'>* Image must be less than 100KB.</p>}
          </div>
          <input onChange={e => setHeading(e.target.value)} value={heading} className='outline-none p-2 bg-gray-50 w-full border-gray-100 border-2' placeholder='Enter heading...'  />
+         
          <JoditEditor
 			value={content}
 			config={config}
 			onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
 			onChange={newContent => setText(newContent)} // preferred
       // @ts-ignore
+      tabIndex={2}
       name="desc"
       id="desc"
-      className='w-full my-5'
+      className='w-full my-28 bg-black'
 		/></div>
       
       {/* preview */}
