@@ -41,6 +41,7 @@ function page() {
       setImageUrl(URL.createObjectURL(file));
     } 
   };
+  console.log(text);
   return (
     <div className='min-h-screen max-w-screen-xl mx-auto mt-20 grid md:grid-cols-2 grid-cols-1 justify-center gap-4'>
       <div className='bg-white flex flex-col justify-start items-start rounded-md p-5'>
