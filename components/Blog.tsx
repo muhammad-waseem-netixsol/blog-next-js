@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegBookmark, FaRegComment } from "react-icons/fa";
 import Comments from "./Comments";
 import Comment from "./Comment";
@@ -11,11 +11,16 @@ import { BlogItem, CompProps } from "@/interfaces/interfaces";
 import Link from "next/link";
 import AdminControls from "./AdminControls";
 import useLogin from "@/zustand-store/loginStore/Login";
-
+import Cookies from "js-cookie";
 const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
   const [file, setFile] = useState<string>("");
-  const [text, setText] = useState<string>("");
-  const { role } = useLogin();
+  const [role, setRole] = useState<string>("");
+
+  useEffect(()=> {
+    const user = Cookies.get("user");
+    const data = JSON.parse(user);
+    setRole(data?.user?.role);
+  }, [])
   return (
     <>
       {details ? (
@@ -62,14 +67,7 @@ const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
               </div>
 
               <p className="post text my-5">
-                {blog?.text} Lorem ipsum dolor sit amet consectetur adipisicing
-                elit. Molestias optio quaerat officiis sapiente sint p laceat
-                voluptatibus accusamus eum voluptas sit nisi impedit ipsum
-                facere, ullam velit, vero reprehenderit possimus animi. Lorem
-                ipsum dolor sit amet consectetur, adipisicing elit. Consequatur
-                inventore expedita dignissimos a non aliquam adipisci iusto
-                nihil dolorem numquam exercitationem perspiciatis nulla
-                quibusdam officiis optio blanditiis rerum, molestias asperiores.
+                {blog?.text} 
               </p>
 
               {/* comments and reactions buttons */}
@@ -81,7 +79,7 @@ const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
                   reactions={blog?.reaction}
                 />
               )}
-              {pending && role === "admin" && <AdminControls id={blog?._id} />}
+              { role === "admin" && blog?.status === "pending" && <AdminControls id={blog?._id} />}
             </div>
           </div>
         </Link>
@@ -126,7 +124,6 @@ const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
                 #github #git
               </span>
             </div>
-
             <p className="post text my-5">
               {blog?.text} 
             </p>
@@ -140,7 +137,7 @@ const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
                 reactions={blog?.reaction}
               />
             )}
-            {pending && role === "admin" && <AdminControls id={blog?._id} />}
+            { role === "admin" && <AdminControls id={blog?._id} />}
           </div>
         </div>
       )}

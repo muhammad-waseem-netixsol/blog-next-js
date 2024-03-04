@@ -60,7 +60,6 @@ const BlogBottom: React.FC<BlogBottomProps> = ({
       router.push("/auth/login");
     }
     const user = JSON.parse(userData);
-    
     setIsLiked(!isLiked);
     toggleLike();
     const resp = await fetch(`http://localhost:3001/reaction`, {
@@ -75,6 +74,7 @@ const BlogBottom: React.FC<BlogBottomProps> = ({
       }),
     });
     const data = await resp.json();
+    console.log(data);
   };
   const reverseComments = [...comments].reverse();
 
