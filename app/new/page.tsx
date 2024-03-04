@@ -18,6 +18,7 @@ function page() {
 	const config:any = useMemo(()=> ({
 			readonly: false, 
 			placeholder:  'Blog Description | Text goes here....',
+    
   }), []);
   // on file button click 
   const onPickFile = () => {
@@ -44,7 +45,7 @@ function page() {
   console.log(text);
   return (
     <div className='min-h-screen max-w-screen-xl mx-auto mt-20 grid md:grid-cols-2 grid-cols-1 justify-center gap-4'>
-      <div className='bg-white flex flex-col justify-start items-start rounded-md p-5'>
+      <div className='bg-white flex flex-col justify-start items-center rounded-md p-5'>
          <input type="file" className='hidden' ref={fileRef} onChange={imageUploadHandler} />
          <button onClick={onPickFile} className='bg-gray-200 border-2 border-black rounded-md p-2'>Upload Cover Image</button> 
          <div className='py-3'>
@@ -52,7 +53,6 @@ function page() {
          {imageSizeError && <p className='text-red-500 text-sm'>* Image must be less than 100KB.</p>}
          </div>
          <input onChange={e => setHeading(e.target.value)} value={heading} className='outline-none p-2 bg-gray-50 w-full border-gray-100 border-2' placeholder='Enter heading...'  />
-         
          <JoditEditor
 			value={content}
 			config={config}
@@ -60,9 +60,7 @@ function page() {
 			onChange={newContent => setText(newContent)} // preferred
       // @ts-ignore
       tabIndex={2}
-      name="desc"
-      id="desc"
-      className='w-full my-28 bg-black'
+      className='w-full my-5 mx-auto'
 		/></div>
       
       {/* preview */}

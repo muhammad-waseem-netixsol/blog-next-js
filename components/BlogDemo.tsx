@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import parse from 'html-react-parser';
 interface BlogDemo{
     text: string;
     image: string;
@@ -23,7 +24,7 @@ const BlogDemo:React.FC<BlogDemo> = ({text, image, heading}) => {
             {heading ? heading : "Heading goes here..."}
           </h1>
           
-          <p className="post text my-5">{text ? text : "Write text of the blog"}</p>
+          <p className="post text my-5">{text ? parse(text)  : "Write text of the blog"}</p>
         </div>
       </div>
      
