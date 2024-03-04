@@ -56,11 +56,12 @@ function page() {
     const userData = Cookies.get("user");
       const user = JSON.parse(userData);
       console.log(user.token)
-    const blogResp = await fetch("http://localhost:3001/blog/create-blog", {
+    const blogResp = await fetch("https://blog-api-pi-gilt.vercel.app/blog/create-blog", {
       method: "POST",
       body: formData,
       headers: {
         "authorization": "Bearer " + user.token,
+       "Access-Control-Allow-Origin": "*",
       },
     });
     console.log(blogResp)
@@ -74,8 +75,8 @@ function page() {
       alert(blogData?.message);
       return;
     }
-    console.log(blogData)
-    router.push("blog/home");
+    alert("Your blog is added and it is pending... Please wait to admin to approve your blog")
+    router.push("/blog/home");
     
   };
   return (

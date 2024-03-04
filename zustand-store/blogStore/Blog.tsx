@@ -70,7 +70,7 @@ const blogStore = create<BlogStore>((set) => ({
   fetchingError: false,
   getBlog: async (id) => {
     set({ blog: null, fetching: true, fetchingError: false });
-    const response = await fetch("https://blog-api-m5jf.vercel.app/blog/" + id);
+    const response = await fetch("https://blog-api-pi-gilt.vercel.app/blog/" + id);
     if (!response.ok) {
       set({ blog: null, fetching: false, fetchingError: true });
       return;
