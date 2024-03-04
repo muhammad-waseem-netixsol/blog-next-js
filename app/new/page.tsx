@@ -1,6 +1,8 @@
 "use client"
 import BlogDemo from '@/components/BlogDemo';
-import React, {ChangeEvent, useRef , useState} from 'react';
+import dynamic from 'next/dynamic';
+import React, {ChangeEvent, useMemo, useRef , useState} from 'react';
+const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 
 function page() {
   const [file, setFile] = useState<any>(null);
@@ -10,6 +12,13 @@ function page() {
   const [imageSizeError, setImageSizeError] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>('');
   const fileRef: React.RefObject<HTMLInputElement> = useRef(null);
+  const editor = useRef(null);
+	const [content, setContent] = useState('');
+
+	const config:any = useMemo(()=> ({
+			readonly: false, 
+			placeholder:  'Start typings...'
+  }), []);
   // on file button click 
   const onPickFile = () => {
     fileRef.current?.click();
@@ -42,10 +51,17 @@ function page() {
          {imageSizeError && <p className='text-red-500 text-sm'>* Image must be less than 100KB.</p>}
          </div>
          <input onChange={e => setHeading(e.target.value)} value={heading} className='outline-none p-2 bg-gray-50 w-full border-gray-100 border-2' placeholder='Enter heading...'  />
-         <textarea onChange={e => setText(e.target.value)} value={text} className='w-full bg-gray-50 my-4 border-2 border-gray-100 p-2 outline-none' placeholder='Enter text here...' name="" id="" cols={30} rows={10}></textarea>
-      </div>
+         <JoditEditor
+			value={content}
+			config={config}
+			onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+			onChange={newContent => setText(newContent)} // preferred
+      // @ts-ignore
+      name="desc"
+      id="desc"
+      className='w-full my-5'
+		/></div>
       
-
       {/* preview */}
       <div className='bg-white w-full rounded-md'>
         <BlogDemo image={imageUrl} text={text} heading={heading}   />
