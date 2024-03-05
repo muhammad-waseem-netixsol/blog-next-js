@@ -26,6 +26,9 @@ export default function Page({ params }: { params: { blogSlug: string } }) {
   }, [initialIsAuthenticated]);
   useEffect(()=> {
     const getSigngleBlog = async( )=> {
+      if(initialIsAuthenticated) {
+        return router.push("/auth/login");
+      }
       await getBlog(params.blogSlug);
     };
     getSigngleBlog();
