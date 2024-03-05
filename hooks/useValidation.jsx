@@ -8,11 +8,10 @@ const useValidation = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        role: '',
       });
     
 
-  const validateUser = (user, role, image, type) => {
+  const validateUser = (user,  image, type) => {
     // Reset errors
     setError({
       username: '',

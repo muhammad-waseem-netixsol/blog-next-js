@@ -39,7 +39,7 @@ export default function Home() {
       <p className={`${inter.className} font-black sm:text-6xl text-3xl px-4 sm:px-1 text-center`}>
         Where <span className="text-indigo-600">developer</span> blogs
         <br />
-        meet <span className="text-indigo-500">community</span> power!
+        meet <span className="text-indigo-600">community</span> power <span className="text-indigo-600">!</span> 
       </p>
       <p className="text-center px-2 inter-font">
         Create and grow your developer blog, newsletter, or team engineering

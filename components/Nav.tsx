@@ -28,7 +28,7 @@ const Navbar = () => {
       <div className="container max-w-screen-xl mx-auto navbar-grid justify-between items-center h-14 z-50">
         <div className="flex justify-start gap-2">
           <div className="flex-center">
-            <Link href={"/blog/home"}>
+            <Link href={user?.user?.role !== "admin" ? "/blog/home" : "/blog/admin"}>
               <img
                 className="min:h-[40px] cursor-pointer block h-[41px] min:w-[50px] w-[51px]"
                 src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/resized_logo_UQww2soKuUsjaOGNB38o.png"

@@ -14,6 +14,7 @@ import {
   FcRules,
   FcTodoList,
 } from "react-icons/fc";
+import { FaCircleUser } from "react-icons/fa6";
 
 const Options = () => {
     const path = usePathname();
@@ -41,6 +42,11 @@ const Options = () => {
       {initialIsAuthenticated && user?.user?.role !== "admin" && <Link className="w-full" href={"/blog/pending"}>
         <li className={` ${path === "/blog/pending" && "bg-indigo-200 underline"} flex justify-start items-center px-2 gap-4 text-md w-full py-3 cursor-pointer hover:bg-indigo-100 rounded hover:underline ${path === "/pending" && "bg-indigo-100"}`}>
           <FcBiotech className="text-2xl" /> Pending Posts
+        </li>
+      </Link>}
+      {initialIsAuthenticated && user?.user?.role === "admin" && <Link className="w-full" href={"/blog/users"}>
+        <li className={` ${path === "/blog/users" && "bg-indigo-200 underline"} flex justify-start items-center px-2 gap-4 text-md w-full py-3 cursor-pointer hover:bg-indigo-100 rounded hover:underline ${path === "/pending" && "bg-indigo-100"}`}>
+          <FaCircleUser className="text-2xl" /> All Users
         </li>
       </Link>}
       {!initialIsAuthenticated&& <Link className="w-full" href={"/auth/login"}>
