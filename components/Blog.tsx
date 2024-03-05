@@ -13,12 +13,17 @@ import AdminControls from "./AdminControls";
 import useLogin from "@/zustand-store/loginStore/Login";
 import Cookies from "js-cookie";
 import parse from "html-react-parser";
+import { useRouter } from "next/navigation";
 const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
   const [file, setFile] = useState<string>("");
   const [role, setRole] = useState<string>("");
 
+  const router = useRouter();
   useEffect(() => {
     const user = Cookies.get("user");
+    if (!user) {
+      return router.push("/auth/login");
+    }
     const data = JSON.parse(user);
     setRole(data?.user?.role);
   }, []);

@@ -13,6 +13,7 @@ const useLogin = create((set) => ({
   token : null ,
   role: "ghost",
   userId: "",
+  blocked: "",
   // isAuthenticated: async () => {
   //   const data = Cookies.get("token");
   //   if (!data) {
@@ -59,7 +60,10 @@ const useLogin = create((set) => ({
         return;
       }
       const data = await response.json();
-      console.log(data)
+      if(data?.error){
+        set({ loading: false, success: false, blocked: data?.message });
+        return;
+      }
       Cookies.set("user", JSON.stringify(data), {expires: 7});
       // Handle successful response
       set({

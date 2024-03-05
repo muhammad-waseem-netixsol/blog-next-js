@@ -8,7 +8,7 @@ import useLogin from "../../../zustand-store/loginStore/Login";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const { loginHandler, loading, httpReqError, initialIsAuthenticated, token } = useLogin();
+  const { loginHandler, loading, httpReqError, initialIsAuthenticated, token, blocked } = useLogin();
   console.log( token);
   const { error, validateUser } = useValidation();
   const router = useRouter();
@@ -157,6 +157,7 @@ const Login = () => {
                 </>
               ))
             : httpReqError?.message}
+            {blocked}
         </p>
       </form>
       <div className="font-mono py-5">

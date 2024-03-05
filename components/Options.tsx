@@ -1,7 +1,7 @@
 "use client"
 import useLogin from "@/zustand-store/loginStore/Login";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { FcPortraitMode } from "react-icons/fc";
 import { FcPlus } from "react-icons/fc";
@@ -20,8 +20,12 @@ const Options = () => {
     const path = usePathname();
     const {logout, role, isAuthenticated, token,  initialIsAuthenticated} = useLogin();
     const [user, setUser] = useState<any>(null)
+    const router = useRouter();
     useLayoutEffect(()=> {
       const user = Cookies.get("user");
+      if (!user) {
+        return router.push("/auth/login");
+      }
       const parsed = JSON.parse(user);
       setUser(parsed)
 
