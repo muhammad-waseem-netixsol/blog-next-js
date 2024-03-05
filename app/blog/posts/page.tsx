@@ -12,6 +12,7 @@ function page() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [initial, setInitial] = useState(true);
   const router = useRouter();
   
   useEffect(() => {
@@ -34,6 +35,7 @@ function page() {
       if (!response.ok) {
         setLoading(false);
       }
+      setInitial(false)
       const data = await response.json();
       setBlogs(data);
       setLoading(false);
@@ -79,6 +81,7 @@ function page() {
             <p>Fetching your blogs...</p>
           </div>
         )}
+        {!initial && blogs?.length === 0 && <div>No Blog Found...</div>}
         {blogs.map((blog) => (
           <div className="w-[300px] sm:w-full flex flex-col justify-center items-center mx-auto">
             <p
