@@ -73,11 +73,11 @@ const Options = () => {
           <FcTodoList className="text-2xl" /> My Posts
         </li>
       </Link>}
-      {initialIsAuthenticated && user?.user?.role !== "admin" && <Link className="w-full" href={"/blog/rejected"}>
+      {/* {initialIsAuthenticated && user?.user?.role !== "admin" && <Link className="w-full" href={"/blog/rejected"}>
         <li className={`${path === "/blog/rejected" && "bg-indigo-200 underline"} flex justify-start items-center px-2 gap-4 text-md w-full py-3 cursor-pointer hover:bg-indigo-100 rounded hover:underline ${path === "/rejected" && "bg-indigo-100"}`}>
           <FcRemoveImage className="text-2xl" /> Rejected
         </li>
-      </Link>}
+      </Link>} */}
       
        {initialIsAuthenticated&& <li onClick={logOutHandler} className="flex justify-start items-center px-2 gap-4 text-md w-full py-3 cursor-pointer  hover:bg-indigo-100 rounded hover:underline">
           <FcImport className="text-2xl" /> Log Out
