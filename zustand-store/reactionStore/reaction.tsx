@@ -8,7 +8,7 @@ const reactionStore = create((set) => ({
     getAllReactions: async () => {
         set({ loading: true, error: false, reactions: [] });
         try {
-            const response = await fetch("https://blog-api-m5jf.vercel.app/get-reactions");
+            const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL+"get-reactions");
             const data = await response.json();
             set({ loading: false, error: false, reactions: data });
         } catch (error) {

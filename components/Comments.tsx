@@ -21,10 +21,10 @@ const Comments: React.FC<adminControlsProps> = ({ id }) => {
   }, [comment]);
 
   const onAddComment = async () => {
-    // if (comment === "") {
-    //   alert("Please add a comment");
-    //   return;
-    // }
+    if (comment === "") {
+      alert("Please add a comment");
+      return;
+    }
     await commentAddHandler(comment, id);
     setComment("");
   };

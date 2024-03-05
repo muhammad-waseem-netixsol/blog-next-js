@@ -6,11 +6,20 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
 import useLogin from "@/zustand-store/loginStore/Login";
 import { useEffect, useLayoutEffect, useState } from "react";
-
+import Cookies from "js-cookie";
 const Navbar = () => {
   const { isAuthenticated, token, logout, initialIsAuthenticated } = useLogin();
-
+  const [user, setUser] = useState(null)
   const [auth, setAuth] = useState(false);
+  useEffect(()=> {
+    const userData = Cookies.get("user");
+    if(!userData) {
+      return;
+    }
+    const user = JSON.parse(userData);
+    console.log(user)
+    setUser(user.user);
+  }, [])
   useEffect(() => { 
       setAuth(initialIsAuthenticated);
   }, [token, logout]);
@@ -41,12 +50,17 @@ const Navbar = () => {
           )}
         </div>
         <div className="flex justify-end items-center gap-5 responsive_hide">
-          {initialIsAuthenticated && (
+          {initialIsAuthenticated && user?.role !== "admin" && (
             <Link href={"/new"}>
               <button className="w-28 hover:bg-indigo-600 text-indigo-600 hover:text-white font-light h-[40px] px-3 rounded-lg border border-indigo-700">
                 Create Post
               </button>
             </Link>
+          )}
+          {initialIsAuthenticated && user?.role === "admin" && (
+              <button disabled={true} className=" bg-indigo-600 text-white font-light h-[40px] px-3 border border-indigo-700">
+                {user?.role === "admin" ? "Admin Mode" : "Writer Mode"}
+              </button>
           )}
           {!initialIsAuthenticated && (
             <Link href={"/auth/login"}>

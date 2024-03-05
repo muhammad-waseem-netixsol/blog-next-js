@@ -7,7 +7,7 @@ const useSignUp = create((set) => ({
   signUpHandler: async (url, method, credentials) => {
     set({ loading: true, httpReqError: null });
     try {
-      const response = await fetch("https://blog-api-m5jf.vercel.app/auth/signup", {
+      const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL+"auth/signup", {
         method,
         body: credentials,
       });
@@ -18,7 +18,7 @@ const useSignUp = create((set) => ({
         return;
       }
       const data = await response.json();
-      console.log(data)
+      console.log("signup =>",data)
       // Handle successful response
       set({ loading: false, success: true, httpReqError: null });
     } catch (httpReqError) {

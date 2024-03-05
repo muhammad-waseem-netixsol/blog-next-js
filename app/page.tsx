@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-
+"use client"
 import { FaArrowAltCircleRight } from "react-icons/fa";
 
 import Companies from "@/components/Companies";
@@ -8,12 +8,26 @@ import "./globals.css";
 import Link from "next/link";
 import SideBar from "@/components/SideBar";
 import { Inter, Pacifico } from "next/font/google";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 const inter = Inter({ subsets: ["latin"], weight: ["900"] });
  const Rubik = Pacifico({
   subsets: ["latin"],
   weight:["400"]
 });
 export default function Home() {
+  const [role, setRole] = useState("");
+  const router = useRouter();
+  useEffect(()=> {
+    const user = Cookies.get("user");
+    if(!user){
+      router.push("/auth/login");
+      return;
+    }
+    const data = JSON.parse(user);
+    setRole(data?.user?.role);
+  }, [])
   
   return (
     <>
@@ -33,7 +47,7 @@ export default function Home() {
         powerful AI features!
       </p>
       <div className="text-center flex justify-center  ">
-        <Link href={"/blog/home"}> <button className="gap-4 py-3 w-[20rem] rounded-full text-white bg-indigo-600 hover:bg-indigo-800 flex justify-center ">
+        <Link href={role === "admin" ?"/blog/admin": "/blog/home"}> <button className="gap-4 py-3 w-[20rem] rounded-full text-white bg-indigo-600 hover:bg-indigo-800 flex justify-center ">
           <span className="btn-span ">Go To Your Timeline</span>{" "}
           <FaArrowAltCircleRight className="text-2xl arrow" />
         </button>

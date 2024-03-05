@@ -10,7 +10,7 @@ import useLogin from "@/zustand-store/loginStore/Login";
 
 const Signup = () => {
   const { loading, httpReqError, success, signUpHandler } = useSignUp();
-  const {isAuthenticated} = useLogin();
+  const {initialIsAuthenticated} = useLogin();
   const { error, validateUser } = useValidation();
   const router = useRouter();
   const [image, setImage] = useState<File | null>(null);
@@ -20,14 +20,13 @@ const Signup = () => {
     password: false,
     confirmPass: false,
   });
-  const [user, setUser] = useState<User>({
+  const [user, setUser] = useState<any>({
     username: "",
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [role, setRole] = useState<string>("");
   // on pick an image
   const onPickUserImage = (event: any) => {
     if (
@@ -44,7 +43,7 @@ const Signup = () => {
    // check if user is authenticated
    useLayoutEffect(() => {
     const authentication = async () => {
-      if (await isAuthenticated()) {
+      if (initialIsAuthenticated) {
         router.push("/");
       }
     }; 
@@ -86,10 +85,7 @@ const Signup = () => {
       }));
     }
   };
-  // on select user type
-  const onSelectRoleHandler = (event: any) => {
-    setRole(event.target.value);
-  };
+ 
   // on pick img btn click
   const pickImageHandler = () => {
     imageRef?.current?.click();
@@ -104,7 +100,6 @@ const Signup = () => {
         password: user.password,
         confirmPassword: user.confirmPassword,
       },
-      role,
       image,
       "signup"
     );
@@ -116,7 +111,7 @@ const Signup = () => {
       formData.append("file", image ? image : "");
       formData.append("email", user.email);
       formData.append("password", user.password);
-      formData.append("role", role);
+      formData.append("role", "writer");
       formData.append("userStatus", "unblock");
       await signUpHandler(
         "http://localhost:3001/auth/signup",
@@ -217,16 +212,11 @@ const Signup = () => {
             <span className="text-red-500">*</span>Type
           </label>
           <select
-            onChange={onSelectRoleHandler}
             className="block w-full py-2 outline-none cursor-pointer text-gray-500 text-sm"
           >
-            <option value="0">Select type</option>
             <option value="writer">Writer</option>
-            <option value="user">Reader</option>
           </select>
-          <p className="w-full text-red-500 text-start">
-            {error.role !== "0" && error.role}
-          </p>
+          
           <label className="text-start block w-full font-medium">
             <span className="text-red-500">*</span>Email
           </label>

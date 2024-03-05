@@ -14,19 +14,26 @@ export default function Page({ params }: { params: { blogSlug: string } }) {
   const {initialIsAuthenticated} = useLogin();
   const {refetch} = commentsStore();
   useLayoutEffect(()=> {
+    const checkBlog = async () => {
       if(initialIsAuthenticated) {
-        getBlog(params.blogSlug);
+       await getBlog(params.blogSlug);
       }else{
         router.push("/auth/login");
       }
+    };
+    checkBlog();
+      
   }, [initialIsAuthenticated]);
   useEffect(()=> {
-    getBlog(params.blogSlug);
+    const getSigngleBlog = async( )=> {
+      await getBlog(params.blogSlug);
+    };
+    getSigngleBlog();
   }, [refetch]);
   
   return <>
   {fetching && <h1 className="w-full text-center">Fetching blog...</h1>}
   {!fetching && fetchingError && <div className="flex flex-col items-center text-2xl"><FcCancel /><h1 className="text-center">Invalid id</h1></div>}
-  {!fetching && !fetchingError && <Blog pending={false} isDetail={true} blog={blog} details={false}  />}
+  {!fetching && !fetchingError && <div className="px-2"><Blog pending={false} isDetail={true} blog={blog} details={false}  /></div>}
   </>
 }

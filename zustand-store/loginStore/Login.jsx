@@ -46,7 +46,7 @@ const useLogin = create((set) => ({
     Cookies.remove("user");
     set({ loading: true, httpReqError: null });
     try {
-      const response = await fetch("https://blog-api-m5jf.vercel.app/auth/login", {
+      const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL+"auth/login", {
         headers: {
           "Content-Type": "Application/json",
         },

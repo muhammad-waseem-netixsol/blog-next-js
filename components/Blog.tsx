@@ -12,15 +12,17 @@ import Link from "next/link";
 import AdminControls from "./AdminControls";
 import useLogin from "@/zustand-store/loginStore/Login";
 import Cookies from "js-cookie";
+import parse from "html-react-parser";
 const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
   const [file, setFile] = useState<string>("");
   const [role, setRole] = useState<string>("");
 
-  useEffect(()=> {
+  useEffect(() => {
     const user = Cookies.get("user");
     const data = JSON.parse(user);
     setRole(data?.user?.role);
-  }, [])
+  }, []);
+  const created = new Date(blog?.createdAt).toLocaleDateString("en-US");
   return (
     <>
       {details ? (
@@ -38,19 +40,20 @@ const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
                 <div className="flex justify-start items-center my-3">
                   {/* picture */}
                   <div className="h-11 rounded-full w-11 overflow-hidden">
-                    <img
-                      src="https://media.dev.to/cdn-cgi/image/width=90,height=90,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F801847%2F7e13901c-7197-453d-bfb3-5258e2d92182.jpg"
-                      alt="user"
-                    />
+                    <img src={blog?.user?.image} alt="user" />
                   </div>
 
                   {/* user details */}
-                  <div className="flex mx-4 flex-col gap-0 justify-center items-start">
+                  <div
+                    className={`flex mx-4 flex-col gap-0 justify-center  ${
+                      blog?.user?.image ? "items-start" : "items-center"
+                    }`}
+                  >
                     <p className="font-bold leading-4 cursor-pointer hover:underline">
                       {blog?.user?.name}
                     </p>
-                    <span className="font-light text-sm leading-4">
-                      {blog?.createdAt}
+                    <span className="font-light text-sm leading-4 mx-auto">
+                      {created}
                     </span>
                   </div>
                 </div>
@@ -65,13 +68,9 @@ const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
                   #github #git
                 </span>
               </div>
-
-              <p className="post text my-5">
-                {blog?.text} 
-              </p>
-
+              <p className="post text my-5 break-words">{blog?.text ? parse(blog?.text) : ""}</p>
               {/* comments and reactions buttons */}
-              {isDetail && (
+              {isDetail && role !== "admin" && (
                 <BlogBottom
                   id={blog?._id}
                   show={false}
@@ -79,7 +78,7 @@ const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
                   reactions={blog?.reaction}
                 />
               )}
-              { role === "admin" && blog?.status === "pending" && <AdminControls id={blog?._id} />}
+            
             </div>
           </div>
         </Link>
@@ -97,10 +96,9 @@ const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
               <div className="flex justify-start items-center my-3">
                 {/* picture */}
                 <div className="h-11 rounded-full w-11 overflow-hidden">
-                  <img
-                    src="https://media.dev.to/cdn-cgi/image/width=90,height=90,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Fuser%2Fprofile_image%2F801847%2F7e13901c-7197-453d-bfb3-5258e2d92182.jpg"
-                    alt="user"
-                  />
+                  {blog?.user?.image && (
+                    <img src={blog?.user?.image} alt="user" />
+                  )}
                 </div>
 
                 {/* user details */}
@@ -109,7 +107,7 @@ const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
                     {blog?.user?.name}
                   </p>
                   <span className="font-light text-sm leading-4">
-                    {blog?.createdAt}
+                    {created}
                   </span>
                 </div>
               </div>
@@ -124,12 +122,9 @@ const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
                 #github #git
               </span>
             </div>
-            <p className="post text my-5">
-              {blog?.text} 
-            </p>
-
+            <p className="post text my-5 break-words">{blog?.text ? parse(blog?.text) : ""}</p>
             {/* comments and reactions buttons */}
-            {isDetail && (
+            {isDetail &&  (
               <BlogBottom
                 id={blog?._id}
                 show={true}
@@ -137,7 +132,6 @@ const Blog: React.FC<CompProps> = ({ blog, details, isDetail, pending }) => {
                 reactions={blog?.reaction}
               />
             )}
-            { role === "admin" && <AdminControls id={blog?._id} />}
           </div>
         </div>
       )}

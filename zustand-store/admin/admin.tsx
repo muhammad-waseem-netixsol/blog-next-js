@@ -19,7 +19,7 @@ const adminStore = create<AdminStore>((set) => ({
     }
     const parsed = JSON.parse(data);
     set({ loading: true, error: '' });
-    const response = await fetch('https://blog-api-m5jf.vercel.app/blog/approve/' + blogId, {
+    const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL+'blog/approve/' + blogId, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

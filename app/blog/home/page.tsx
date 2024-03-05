@@ -3,7 +3,7 @@ import Navbar from "@/components/Nav";
 
 const Home = () => {
   return (
-    <main>
+    <main className="px-2">
       <BlogHome />
     </main>
   );

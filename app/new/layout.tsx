@@ -1,5 +1,6 @@
 "use client"
 
+import Navbar from "@/components/Nav";
 import useLogin from "@/zustand-store/loginStore/Login";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -20,7 +21,13 @@ export default function RootLayout({
   },[])
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        <div>
+        {children}
+        </div>
+      
+        </body>
     </html>
   )
 }

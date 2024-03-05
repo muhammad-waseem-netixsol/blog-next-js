@@ -20,7 +20,7 @@ const commentsStore = create<CommentsStore>((set) => ({
         return;
       }
       const user = JSON.parse(userData);
-      const response = await fetch("https://blog-api-m5jf.vercel.app/comment", {
+      const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL+"comment", {
         method: "POST",
         headers: {
           "Content-type": "application/json",

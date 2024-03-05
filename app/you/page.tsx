@@ -10,9 +10,8 @@ import { TbMessageCircle2 } from "react-icons/tb";
 import Cookies from "js-cookie";
 
 const Profile = () => {
-  const {name, username, created, initialIsAuthenticated, token} = useLogin();
-  const [user, setUser] = useState(null);
-  const [joinee, setJoinee] = useState<string>(null);
+  const {name, username,  initialIsAuthenticated, token} = useLogin();
+  const [user, setUser] = useState(null)
   const router = useRouter();
   useLayoutEffect(()=> {
     if(!initialIsAuthenticated){
@@ -24,9 +23,8 @@ const Profile = () => {
     const user = JSON.parse(userData);
     console.log(user)
     setUser(user.user);
-    setJoinee(new Date(user.createdAt).toLocaleDateString(undefined, { day: 'numeric', month: 'numeric', year: '2-digit' }));
   }, [])
- 
+  const created = new Date(user?.createdAt).toLocaleDateString("en-US");
  
   return (
     <>
@@ -39,9 +37,9 @@ const Profile = () => {
             <div className="md:text-3xl  font-black roboto-bold leading-3">{user?.name}
             <p className="block text-center text-sm font-light text-gray-600">({user?.username})</p></div>
             <p className="text-center py-5">Bio here</p>
-            <div className="flex justify-center gap-2"><FaBirthdayCake className=" text-2xl"  />{joinee}</div>
+            <div className="flex justify-center gap-2"><FaBirthdayCake className=" text-2xl"  />{created}</div>
             <div className="py-5"> 
-              <Link href={"/blog/home"}><button className="bg-indigo-600 text-white py-2 px-5 hover:bg-indigo-800">GO BACK TO TIMELINE</button></Link>
+              <Link href={user?.role === "admin" ? "/blog/admin":"/blog/home"}><button className="bg-indigo-600 text-white py-2 px-5 hover:bg-indigo-800">GO BACK TO TIMELINE</button></Link>
             </div>
         </div>
         <div className="bg-white my-4 p-4 max-w-[300px] rounded-md flex flex-col gap-5 mx-auto sm:mx-0">

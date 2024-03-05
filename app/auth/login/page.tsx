@@ -71,7 +71,7 @@ const Login = () => {
     // calling custom hook
     const validate = validateUser(
       { email: user.email, password: user.password },
-      "role",
+     
       null,
       "login"
     );
@@ -147,7 +147,7 @@ const Login = () => {
           type="submit"
           className={`mt-5 py-2 bg-indigo-700 text-white block w-full rounded font-mono hover:bg-indigo-600 ${loading? "opacity-50 cursor-not-allowed" : ""}`}
         >
-          Login
+          {loading ? "Please wait..." : "Login"}
         </button>
         <p className="w-full text-start text-red-500">
           {Array.isArray(httpReqError?.message)

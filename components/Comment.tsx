@@ -6,7 +6,7 @@ import { MdOutlineDelete } from 'react-icons/md'
 
 const Comment:React.FC<any> = ({comment}) => {
   const created = new Date(comment.createdAt).toLocaleDateString("en-US");
-  console.log(comment)
+  
   return (
     <div className="border-t w-full py-5 z-10">
     <div className="flex gap-5">

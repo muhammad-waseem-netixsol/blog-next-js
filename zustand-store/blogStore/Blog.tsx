@@ -11,7 +11,7 @@ const blogStore = create<BlogStore>((set) => ({
     set({ loading: true, error: false, blogs: [], isInitial: false });
     try {
       const response = await fetch(
-        "https://blog-api-m5jf.vercel.app/blog/get-blogs"
+        process.env.NEXT_PUBLIC_BACKEND_URL+"blog/get-blogs"
       );
       if (!response.ok) {
         set({ loading: false, error: true, blogs: [], isInitial: false });
@@ -41,7 +41,7 @@ const blogStore = create<BlogStore>((set) => ({
       pendingInitial: false,
     });
     const response = await fetch(
-      "https://blog-api-m5jf.vercel.app/blog/pending-blogs",
+      process.env.NEXT_PUBLIC_BACKEND_URL+"blog/pending-blogs",
       {
         headers: {
           Authorization: "Bearer " + parsed,
@@ -70,7 +70,8 @@ const blogStore = create<BlogStore>((set) => ({
   fetchingError: false,
   getBlog: async (id) => {
     set({ blog: null, fetching: true, fetchingError: false });
-    const response = await fetch("https://blog-api-pi-gilt.vercel.app/blog/" + id);
+    console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
+    const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL+"blog/" + id);
     if (!response.ok) {
       set({ blog: null, fetching: false, fetchingError: true });
       return;
