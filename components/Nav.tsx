@@ -57,7 +57,7 @@ const Navbar = () => {
               </button>
             </Link>
           )}
-          {initialIsAuthenticated && user?.role === "admin" && (
+          {initialIsAuthenticated && (
               <button disabled={true} className=" bg-indigo-600 text-white font-light h-[40px] px-3 border border-indigo-700">
                 {user?.role === "admin" ? "Admin Mode" : "Writer Mode"}
               </button>

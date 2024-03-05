@@ -12,6 +12,7 @@ const Page: React.FC = () => {
   useLayoutEffect(() => {
     getPendingBlogs();
   }, [success]);
+  console.log("pen => ",pendingBlogs);
   return (
     <div className="grid grid-pending gap-4">
       <div className="flex flex-col gap-5">
@@ -21,7 +22,7 @@ const Page: React.FC = () => {
           !pendingError &&
           pendingBlogs.length > 0 &&
           pendingBlogs?.map((blog) => <Blog pending={true} isDetail={false} key={blog._id} blog={blog} details={false} />)}
-        {!pendingInitial && !pending && pendingBlogs.length === 0 && (
+        {!pendingInitial && !pending && pendingBlogs?.length === 0 && (
           <div className="text-center flex flex-col justify-center items-center">
             No Pending Post... <FcBiotech className="text-3xl animate-pulse" />
           </div>

@@ -96,7 +96,7 @@ function page() {
               isDetail={false}
               pending={false}
             />
-            <div className="w-full grid sm:grid-cols-2 gap-2 grid-cols-1">
+            <div className="w-full grid sm:grid-cols-2 gap-2 grid-cols-1 mb-5">
               <Link className="w-full" href={"/edit/"+blog?._id}><button className="hover:bg-green-200 bg-green-50 py-3 rounded-lg flex justify-center items-center text-xl text-green-800 w-full">
                 <FcEditImage className="text-2xl mx-2" onClick={onEditBlog} />{" "}
                 Edit Blog

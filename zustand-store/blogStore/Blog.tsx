@@ -29,7 +29,7 @@ const blogStore = create<BlogStore>((set) => ({
   pending: false,
   pendingInitial: true,
   getPendingBlogs: async () => {
-    const dataToken = Cookies.get("token");
+    const dataToken = Cookies.get("user");
     if (!dataToken) {
       return;
     }
@@ -44,7 +44,7 @@ const blogStore = create<BlogStore>((set) => ({
       process.env.NEXT_PUBLIC_BACKEND_URL+"blog/pending-blogs",
       {
         headers: {
-          Authorization: "Bearer " + parsed,
+          Authorization: "Bearer " + parsed?.token,
         },
       }
     );
