@@ -74,11 +74,7 @@ const useValidation = () => {
     return false;
   }
 
-  // Role validation
-  if (role === '0' || role === '') {
-    setError((prev) => ({ ...prev, role: 'Please select your role!' }));
-    return false;
-  }
+  
 
   // Username format validation
   if (!/^(?=.*[a-zA-Z])(?=.*\d).+$/.test(user.username)) {

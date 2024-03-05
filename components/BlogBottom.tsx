@@ -27,7 +27,7 @@ const BlogBottom: React.FC<BlogBottomProps> = ({
   const [allReactions, setReactions] = useState<any[]>(reactions);
 
   const router = useRouter();
-
+console.log(userId)
 
   useEffect(() => {
     setReactions(reactions);
@@ -38,7 +38,13 @@ const BlogBottom: React.FC<BlogBottomProps> = ({
   }, [reactions]);
 
   function checkLike() {
-    const like = reactions?.some((reaction) => reaction?.user === userId);
+   const userData = Cookies.get("user");
+   if(!userData) {
+    router.push("/auth/login")
+   };
+   const user = JSON.parse(userData);
+    const like = reactions?.some((reaction) => reaction?.user === user?.user?._id);
+    console.log(reactions)
     return like;
   }
 
