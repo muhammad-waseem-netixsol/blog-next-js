@@ -11,7 +11,7 @@ const Navbar = () => {
   const { isAuthenticated, token, logout, initialIsAuthenticated } = useLogin();
   const [user, setUser] = useState(null)
   const [auth, setAuth] = useState(false);
-  useEffect(()=> {
+  useLayoutEffect(()=> {
     const userData = Cookies.get("user");
     if(!userData) {
       return;

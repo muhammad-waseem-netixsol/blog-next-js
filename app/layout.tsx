@@ -28,6 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+       <head>
+        <meta charSet="utf-8" />
+      </head>
       <body className={inter.className + " inter-font container min-h-screen max-w-screen-xl mx-auto"}>
         <Navbar />
         {children}
