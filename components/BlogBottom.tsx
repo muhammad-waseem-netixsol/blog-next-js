@@ -68,7 +68,7 @@ console.log(userId)
     const user = JSON.parse(userData);
     setIsLiked(!isLiked);
     toggleLike();
-    const resp = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/reaction", {
+    const resp = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "reaction", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
